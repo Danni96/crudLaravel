@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crud laravel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+@extends('layouts.app')
+
+@section('content')
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
-        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-</head>
-
-<body>
     <h1 class="text-center p-3">Crud en laravel</h1>
 
     @if (session("correcto"))
@@ -42,6 +36,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Cantidad</th>
+                    <th scope="col">Categorias</th>
                     <th scope="col" colspan="2">Opciones</th>
                 </tr>
             </thead>
@@ -52,6 +47,7 @@
                     <td>{{ $producto->nombre }}</td>
                     <td>${{ $producto->precio }}</td>
                     <td>{{ $producto->cantidad }}</td>
+                    <td>{{ $producto->categoria }}</td>
                     <td>
                         <a href="#" class="btn btn-warning" data-bs-toggle="modal"
                             data-bs-target="#ModalEditar{{$producto->idProductos}}">
@@ -90,7 +86,14 @@
                                                 <input type="number" value="{{$producto->cantidad}}" class="form-control" id="txtCantidad{{$producto->idProductos}}" name="txtCantidad">
                                             </div>
                                         </div>
-                    
+                                        <div class="mb-3">
+                                            <label for="idCategoria" class="form-label">Categoría</label>
+                                            <select class="form-select" id="idCategoria" name="txtIdCategorias">
+                                                @foreach ($categorias as $producto)
+                                                    <option value="{{ $producto->idCategorias }}">{{ $producto->categoria_nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
@@ -134,7 +137,14 @@
                                 <input type="number" class="form-control" id="txtCantidad" name="txtCantidad">
                             </div>
                         </div>
-
+                        <div class="mb-3">
+                            <label for="idCategoria" class="form-label">Categoría</label>
+                            <select class="form-select" id="idCategoria" name="txtIdCategorias">
+                                @foreach ($categorias as $producto)
+                                    <option value="{{ $producto->idCategorias }}">{{ $producto->categoria_nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
@@ -150,6 +160,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-</body>
 
-</html>
+@endsection
